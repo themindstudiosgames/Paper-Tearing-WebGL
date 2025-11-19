@@ -7,6 +7,8 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
+    <!-- Test UI (comment out for production) -->
+    <link rel="stylesheet" href="tests.css">
   </head>
   <body>
     <div id="unity-container">
@@ -94,11 +96,19 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+
+          window.unityInstance = unityInstance;
+
+          if (typeof initTests === 'function') {
+            initTests(unityInstance);
+          }
         }).catch((message) => {
           alert(message);
         });
       };
       document.body.appendChild(script);
     </script>
+    <!-- Test UI Script (comment out for production) -->
+    <script src="tests.js"></script>
   </body>
 </html>
